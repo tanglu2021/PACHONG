@@ -1,0 +1,22 @@
+import requests
+from lxml import etree
+import chardet
+
+#修改请求头信息
+headers={'User-Agent':'Mozilla/5.0(Windows NT 10.0; Win64; x64)'
+                        'AppleWebKit/537.36(KHTML,like Gecko)'
+                        'Chrome/88.0.4324.96 Safari/537.36 Edg/88.0.705.53'}
+
+url = "https://www.bqkan.com/50_50096/18520531.html"
+if __name__ =='__main__':
+    r=requests.get(url=url,headers=headers)
+    r.encoding='gbk'
+    r_text=r.text
+    r_html= etree.HTML(r_text)
+    title=r_html.xpath('//h1/text()')[0]
+    print(title)
+    h2=r_html.xpath('//*[@id="content"]/text()')
+    content=""
+    for i in h2:
+        content += i.strip()
+    print(content)
