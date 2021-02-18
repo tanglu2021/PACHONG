@@ -36,7 +36,12 @@ if __name__ =='__main__':
         content += i.strip()
     print(content)
 
-
+#通过chardet包获取编码方式
+import chardet
+import requests
+res=requests.get("")
+cs=chardet.detect(res.content)
+encode=cs['encoding']
 
 
 
