@@ -1,13 +1,28 @@
 import requests
 from lxml import etree
 import chardet
+from bs4 import BeautifulSoup
+import re
+import time
 
 #修改请求头信息
-headers={'User-Agent':'Mozilla/5.0(Windows NT 10.0; Win64; x64)'
-                        'AppleWebKit/537.36(KHTML,like Gecko)'
-                        'Chrome/88.0.4324.96 Safari/537.36 Edg/88.0.705.53'}
+headers={'Host':'datacenter.eastmoney.com',
+         'Referer':'http://data.eastmoney.com/',
+         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
+params = {'callback':'jQuery112305370627748299672_1613650289981',
+          'sty':'ORG_CODE,REG_ADDRESS,FOUND_DATE,LEGAL_PERSON,CHAIRMAN,ORG_PROFILE,BUSINESS_SCOPE',
+          'token':'894050c76af8597a853f5b408b759f5d',
+          'source':'GEMREG',
+          'type':'RPT_GEM_REGIPO_ORGINFO',
+          'filter':'(ORG_CODE="10154140")',
+          'client':'WEB',
+          'ps':'50',
+          '_':time.time()}
+url = "http://datacenter.eastmoney.com/api/data/get"
+response=requests.get(url=url,headers=headers,params=params)
+content=BeautifulSoup(response.text,'lxml') 
+print(content)
 
-url = "https://www.bqkan.com/50_50096/18520531.html"
 if __name__ =='__main__':
     r=requests.get(url=url,headers=headers)
     r.encoding='gbk'
@@ -20,3 +35,8 @@ if __name__ =='__main__':
     for i in h2:
         content += i.strip()
     print(content)
+
+
+
+
+
