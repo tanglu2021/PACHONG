@@ -20,7 +20,7 @@ params = {'callback':'jQuery112305370627748299672_1613650289981',
           '_':time.time()}
 url = "http://datacenter.eastmoney.com/api/data/get"
 response=requests.get(url=url,headers=headers,params=params)
-content=BeautifulSoup(response.text,'lxml') 
+content=BeautifulSoup(response.text,from_encoding="",'lxml') 
 print(content)
 
 if __name__ =='__main__':
